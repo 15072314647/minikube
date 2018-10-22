@@ -21,7 +21,7 @@ sudo systemctl restart docker
 # minikube
 ```
 curl -Lo minikube http://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
-curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/v1.9.4/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 
 export MINIKUBE_WANTUPDATENOTIFICATION=false
 export MINIKUBE_WANTREPORTERRORPROMPT=false
@@ -32,14 +32,14 @@ touch $HOME/.kube/config
 
 export KUBECONFIG=$HOME/.kube/config
 
-mkdir -p $HOME/.minikube/cache/v1.9.0/
-curl -Lo kubeadm http://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubeadm && chmod +x kubeadm && sudo mv kubeadm $HOME/.minikube/cache/v1.9.0/
-curl -Lo kubelet http://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubelet && chmod +x kubelet && sudo mv kubelet $HOME/.minikube/cache/v1.9.0/
+mkdir -p $HOME/.minikube/cache/v1.9.4/
+curl -Lo kubeadm http://storage.googleapis.com/kubernetes-release/release/v1.9.4/bin/linux/amd64/kubeadm && chmod +x kubeadm && sudo mv kubeadm $HOME/.minikube/cache/v1.9.4/
+curl -Lo kubelet http://storage.googleapis.com/kubernetes-release/release/v1.9.4/bin/linux/amd64/kubelet && chmod +x kubelet && sudo mv kubelet $HOME/.minikube/cache/v1.9.4/
 
 ```
 
 
-# minikube相关核心镜像0.9
+# minikube相关核心镜像0.9.4
 ```
 docker pull registry.cn-qingdao.aliyuncs.com/kang123/kube-apiserver-amd64:1.0
 docker tag registry.cn-qingdao.aliyuncs.com/kang123/kube-apiserver-amd64:1.0 gcr.io/google_containers/kube-apiserver-amd64:v1.9.4
