@@ -84,5 +84,9 @@ docker tag registry.cn-qingdao.aliyuncs.com/kang123/kubernetes-dashboard-amd64:1
 
 ```
 # 启动minikube
+```
 minikube start --vm-driver=none -b kubeadm
 ```
+
+# 安装tail
+
