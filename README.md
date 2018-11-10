@@ -20,7 +20,7 @@ sudo systemctl restart docker
 ```
 # minikube
 ```
-curl -Lo minikube http://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+curl -Lo minikube http://storage.googleapis.com/minikube/releases/v0.25.2/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/v1.9.4/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 
 export MINIKUBE_WANTUPDATENOTIFICATION=false
