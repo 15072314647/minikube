@@ -1,0 +1,38 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: cluster-admin-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: kube-system
+- kind: ServiceAccount
+  name: configmapcontroller
+  namespace: fabric8
+- kind: ServiceAccount
+  name: exposecontroller
+  namespace: fabric8
+- kind: ServiceAccount
+  name: gogs
+  namespace: fabric8
+- kind: ServiceAccount
+  name: fabric8
+  namespace: fabric8
+- kind: ServiceAccount
+  name: default
+  namespace: fabric8
+- kind: ServiceAccount
+  name: jenkins
+  namespace: fabric8
+- kind: ServiceAccount
+  name: che
+  namespace: fabric8
+- kind: ServiceAccount
+  name: default
+  namespace: default
+- kind: User
+  name: system:anonymous
