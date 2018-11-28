@@ -1,0 +1,108 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: catalog-resume
+  namespace: fabric8
+  labels:
+    component: resume
+    expose: 'true'
+    group: io.fabric8.ipaas.apps
+    kind: catalog
+    project: resume
+    provider: fabric8
+  annotations:
+    maven.fabric8.io/app-catalog: 'true'
+data:
+  catalog-resume.yml: |
+    ---
+    apiVersion: "v1"
+    kind: "Template"
+    metadata:
+      annotations: {}
+      finalizers: []
+      labels:
+        component: "resume"
+        provider: "fabric8"
+        project: "resume"
+        expose: "true"
+        group: "io.fabric8.ipaas.apps"
+      name: "resume"
+      ownerReferences: []
+    labels: {}
+    objects:
+    - apiVersion: "v1"
+      kind: "Service"
+      metadata:
+        annotations: {}
+        finalizers: []
+        labels:
+          component: "resume"
+          provider: "fabric8"
+          project: "resume"
+          group: "io.fabric8.ipaas.apps"
+          expose: "true"
+        name: "resume"
+        ownerReferences: []
+      spec:
+        deprecatedPublicIPs: []
+        externalIPs: []
+        loadBalancerSourceRanges: []
+        ports:
+        - name: "default"
+          port: 80
+          protocol: "TCP"
+          targetPort: 80
+        selector:
+          project: "resume"
+          component: "resume"
+          provider: "fabric8"
+          group: "io.fabric8.ipaas.apps"
+        type: "LoadBalancer"
+    - apiVersion: "extensions/v1beta1"
+      kind: "Deployment"
+      metadata:
+        annotations: {}
+        finalizers: []
+        labels:
+          component: "resume"
+          provider: "fabric8"
+          project: "resume"
+          group: "io.fabric8.ipaas.apps"
+        name: "resume"
+        ownerReferences: []
+      spec:
+        replicas: 1
+        selector:
+          matchExpressions: []
+          matchLabels:
+            component: "resume"
+            provider: "fabric8"
+            project: "resume"
+            group: "io.fabric8.ipaas.apps"
+        template:
+          metadata:
+            annotations: {}
+            finalizers: []
+            labels:
+              component: "resume"
+              provider: "fabric8"
+              project: "resume"
+              group: "io.fabric8.ipaas.apps"
+            ownerReferences: []
+          spec:
+            containers:
+            - args: []
+              command: []
+              image: "registry.cn-hangzhou.aliyuncs.com/kang123/zresume"
+              imagePullPolicy: "IfNotPresent"
+              name: "resume"
+              ports:
+              - containerPort: 80
+                name: "http"
+              securityContext: {}
+              volumeMounts: []
+            imagePullSecrets: []
+            nodeSelector: {}
+            serviceAccountName: "fabric8"
+            volumes: []
+    parameters: []
