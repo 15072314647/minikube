@@ -1,0 +1,216 @@
+kind: "ConfigMap"
+apiVersion: "v1"
+metadata:
+  name: "catalog-rap2"
+  namespace: "fabric8"
+  labels:
+    component: "rap2"
+    expose: "true"
+    group: "io.fabric8.ipaas.apps"
+    kind: "catalog"
+    project: "rap2"
+    provider: "fabric8"
+  annotations:
+    maven.fabric8.io/app-catalog: "true"
+data:
+  catalog-rap2.yml: |
+    ---
+    apiVersion: "v1"
+    kind: "Template"
+    metadata:
+      annotations: {}
+      finalizers: []
+      labels:
+        component: "rap2"
+        provider: "fabric8"
+        project: "rap2"
+        expose: "true"
+        group: "io.fabric8.ipaas.apps"
+      name: "rap2"
+      ownerReferences: []
+    labels: {}
+    objects:
+    - apiVersion: "v1"
+      kind: "Service"
+      metadata:
+        annotations: {}
+        finalizers: []
+        labels:
+          component: "rap2"
+          provider: "fabric8"
+          project: "rap2-delos"
+          group: "io.fabric8.ipaas.apps"
+          expose: "true"
+        name: "rap2-delos"
+        ownerReferences: []
+      spec:
+        deprecatedPublicIPs: []
+        externalIPs: []
+        loadBalancerSourceRanges: []
+        ports:
+        - name: "default"
+          port: 80
+          protocol: "TCP"
+          targetPort: 8080
+        selector:
+          project: "rap2-delos"
+          component: "rap2"
+          provider: "fabric8"
+          group: "io.fabric8.ipaas.apps"
+        type: "LoadBalancer"
+    - apiVersion: "extensions/v1beta1"
+      kind: "Deployment"
+      metadata:
+        annotations: {}
+        finalizers: []
+        labels:
+          component: "rap2"
+          provider: "fabric8"
+          project: "rap2-delos"
+          group: "io.fabric8.ipaas.apps"
+        name: "rap2-delos"
+        ownerReferences: []
+      spec:
+        replicas: 1
+        selector:
+          matchExpressions: []
+          matchLabels:
+            component: "rap2"
+            provider: "fabric8"
+            project: "rap2-delos"
+            group: "io.fabric8.ipaas.apps"
+        template:
+          metadata:
+            annotations: {}
+            finalizers: []
+            labels:
+              component: "rap2"
+              provider: "fabric8"
+              project: "rap2-delos"
+              group: "io.fabric8.ipaas.apps"
+            ownerReferences: []
+          spec:
+            containers:
+            - args: []
+              command:
+              - /bin/sh
+              - -c
+              - "sleep 30; node scripts/init; node dispatch.js"
+              env:
+              - name: "MYSQL_URL"
+                value: "mysql-mysql"
+              - name: "MYSQL_PORT"
+                value: "3306"
+              - name: "MYSQL_USERNAME"
+                value: "root"
+              - name: "MYSQL_PASSWD"
+                valueFrom:
+                  secretKeyRef:
+                    name: "mysql-mysql"
+                    key: "mysql-root-password"
+              - name: "MYSQL_SCHEMA"
+                value: "rap2"
+              - name: "REDIS_URL"
+                value: "redis-redis"
+              - name: "REDIS_PORT"
+                value: "6379"
+              - name: "REDIS_PWD"
+                valueFrom:
+                  secretKeyRef:
+                    name: "redis-redis"
+                    key: "redis-password"				
+              image: "blackdog1987/rap2-delos:1.0.0"
+              imagePullPolicy: "IfNotPresent"
+              name: "rap2-delos"
+              ports:
+              - containerPort: 8080
+                name: "http"
+              securityContext: {}
+              volumeMounts: 
+			  - mountPath: "/app/config"
+                name: "config-volume"  
+            imagePullSecrets: []
+            nodeSelector: {}
+            serviceAccountName: "fabric8"
+            volumes:
+			- configMap:
+                name: "rap2-delos"
+              name: "config-volume"
+    - apiVersion: "v1"
+      kind: "Service"
+      metadata:
+        annotations: {}
+        finalizers: []
+        labels:
+          component: "rap2"
+          provider: "fabric8"
+          project: "rap2-dolores"
+          group: "io.fabric8.ipaas.apps"
+          expose: "true"
+        name: "rap2-dolores"
+        ownerReferences: []
+      spec:
+        deprecatedPublicIPs: []
+        externalIPs: []
+        loadBalancerSourceRanges: []
+        ports:
+        - name: "default"
+          port: 80
+          protocol: "TCP"
+          targetPort: 80
+        selector:
+          project: "rap2-dolores"
+          component: "rap2"
+          provider: "fabric8"
+          group: "io.fabric8.ipaas.apps"
+        type: "LoadBalancer"
+    - apiVersion: "extensions/v1beta1"
+      kind: "Deployment"
+      metadata:
+        annotations: {}
+        finalizers: []
+        labels:
+          component: "rap2"
+          provider: "fabric8"
+          project: "rap2-dolores"
+          group: "io.fabric8.ipaas.apps"
+        name: "rap2-dolores"
+        ownerReferences: []
+      spec:
+        replicas: 1
+        selector:
+          matchExpressions: []
+          matchLabels:
+            component: "rap2"
+            provider: "fabric8"
+            project: "rap2-dolores"
+            group: "io.fabric8.ipaas.apps"
+        template:
+          metadata:
+            annotations: {}
+            finalizers: []
+            labels:
+              component: "rap2"
+              provider: "fabric8"
+              project: "rap2-dolores"
+              group: "io.fabric8.ipaas.apps"
+            ownerReferences: []
+          spec:
+            containers:
+            - args: []
+              command: 
+              - /bin/sh
+              - -c
+              - "http-server ./build -s -p 80"			  
+              env: []
+              image: "registry.cn-hangzhou.aliyuncs.com/kang123/rap2-dolores:lastest"
+              imagePullPolicy: "Always"
+              name: "rap2-dolores"
+              ports:
+              - containerPort: 80
+                name: "http"
+              securityContext: {}
+            imagePullSecrets: []
+            nodeSelector: {}
+            serviceAccountName: "fabric8"		  
+    parameters: []
