@@ -40,7 +40,7 @@ data:
           provider: "fabric8"
           project: "rap2-delos"
           group: "io.fabric8.ipaas.apps"
-          expose: "true"
+          expose: "false"
         name: "rap2-delos"
         ownerReferences: []
       spec:
