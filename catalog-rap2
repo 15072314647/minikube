@@ -127,13 +127,13 @@ data:
                 name: "http"
               securityContext: {}
               volumeMounts: 
-			  - mountPath: "/app/config"
+	        - mountPath: "/app/config"
                 name: "config-volume"  
             imagePullSecrets: []
             nodeSelector: {}
             serviceAccountName: "fabric8"
             volumes:
-			- configMap:
+	      - configMap:
                 name: "rap2-delos"
               name: "config-volume"
     - apiVersion: "v1"
@@ -147,7 +147,7 @@ data:
           project: "rap2-dolores"
           group: "io.fabric8.ipaas.apps"
           expose: "true"
-        name: "rap2-dolores"
+        name: "rap2"
         ownerReferences: []
       spec:
         deprecatedPublicIPs: []
@@ -198,19 +198,23 @@ data:
           spec:
             containers:
             - args: []
-              command: 
-              - /bin/sh
-              - -c
-              - "http-server ./build -s -p 80"			  
+              command: []		  
               env: []
-              image: "registry.cn-hangzhou.aliyuncs.com/kang123/rap2-dolores:lastest"
+              image: "registry.cn-hangzhou.aliyuncs.com/kang123/rap2-dolores-new"
               imagePullPolicy: "Always"
               name: "rap2-dolores"
               ports:
               - containerPort: 80
                 name: "http"
               securityContext: {}
+	      volumeMounts: 
+	        - mountPath: "/etc/nginx/conf.d"
+                name: "nginx-conf" 
             imagePullSecrets: []
             nodeSelector: {}
-            serviceAccountName: "fabric8"		  
+            serviceAccountName: "fabric8"
+	    volumes:
+	      - configMap:
+                name: "rap2-dolores"
+              name: "nginx-conf"
     parameters: []
