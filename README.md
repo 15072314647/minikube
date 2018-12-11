@@ -88,3 +88,12 @@ docker tag registry.cn-qingdao.aliyuncs.com/kang123/kubernetes-dashboard-amd64:1
 minikube start --vm-driver=none -b kubeadm
 ```
 
+# 安装helm
+wget http://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz  
+tar -zxvf helm-v2.9.1-linux-amd64.tar.gz  
+mv linux-amd64/helm /usr/local/bin/helm  
+helm init --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.9.1 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts  
+
+# 安装fabric8
+helm repo add fabric8 https://fabric8.io/helm
+
