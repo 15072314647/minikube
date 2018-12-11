@@ -57,7 +57,7 @@ data:
           component: "resume"
           provider: "fabric8"
           group: "io.fabric8.ipaas.apps"
-        type: "LoadBalancer"
+        type: "ClusterIP"
     - apiVersion: "extensions/v1beta1"
       kind: "Deployment"
       metadata:
